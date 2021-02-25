@@ -36,7 +36,7 @@ async def fetch(member: discord.Member):
     
     for afterInvite in afterInvites:
         if afterInvite.code in db[member.guild.id]["invites"]:
-            if afterInvite.uses == db[member.guild.id]["invites"][afterInvite.code]:
+            if afterInvite.uses <= db[member.guild.id]["invites"][afterInvite.code]:
                 continue
             # log
             pass
@@ -63,6 +63,10 @@ async def on_ready():
 @bot.event
 async def on_member_join(member):
     await fetch(member)
+
+@bot.event
+async def on_member_remove(member):
+    pass
     
 @bot.command()
 @commands.guild_only()
