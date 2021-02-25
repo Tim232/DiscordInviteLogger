@@ -1,6 +1,5 @@
 import discord
 from discord.ext import commands
-import asyncio
 import hPickle as pic
 
 intents = discord.Intents.default()
