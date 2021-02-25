@@ -22,11 +22,13 @@ db = pic.load("db.pickle")
 
 async def fetch(member: discord.Member):
     await bot.wait_until_ready()
+
+    db = pic.load("db.pickle")
     
     if member.guild.id not in db:
         return
     
-    channel = bot.get_channel(db[member.guild.id]["channel"])
+    channel = member.guild.get_channel(db[member.guild.id]["channel"])
     
     if not channel:
         return
@@ -78,6 +80,8 @@ async def register(ctx, channel: discord.TextChannel = None):
         except:
             await ctx.author.send(f"I don't have the permission to send messages at {channel.mention}!")
         return
+    
+    db = pic.load("db.pickle")
     
     db[ctx.guild.id]["channel"] = channel.id
     
